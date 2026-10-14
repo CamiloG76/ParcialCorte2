@@ -42,7 +42,6 @@ button {
     padding: 12px 18px;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
 }
 
 button:hover {
@@ -55,8 +54,6 @@ table {
     border-collapse: collapse;
     margin-bottom: 30px;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px #ddd;
 }
 
 th, td {
