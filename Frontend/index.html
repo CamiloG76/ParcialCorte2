@@ -1,11 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tienda</title>
+
 </head>
 <body>
-    
+
+    <h1>Mi Tienda</h1>
+
+    <h2>Registrar categoria</h2>
+
+    <form id="form-categoria">
+        <input type="text" id="nombre-categoria" placeholder="Nombre" required>
+        <input type="text" id="descripcion-categoria" placeholder="Descripcion">
+        <button type="submit">Guardar categoria</button>
+    </form>
+
+    <h2>Lista de categorias</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-categorias"></tbody>
+    </table>
+
+    <h2>Registrar producto</h2>
+
+    <form id="form-producto">
+        <input type="text" id="nombre-producto" placeholder="Nombre" required>
+        <input type="text" id="descripcion-producto" placeholder="Descripcion">
+        <input type="number" id="precio-producto" placeholder="Precio" required>
+        <select id="categoria-producto" required>
+            <option value="">Selecciona una categoria</option>
+        </select>
+        <button type="submit">Guardar producto</button>
+    </form>
+
+    <h2>Lista de productos</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-productos"></tbody>
+    </table>
+
 </body>
 </html>
+
