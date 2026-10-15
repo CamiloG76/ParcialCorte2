@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'categorias',
     'productos',
+    'proveedores',
 ]
 
 MIDDLEWARE = [
