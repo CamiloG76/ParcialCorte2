@@ -1,5 +1,6 @@
 const apiCategorias = "http://127.0.0.1:8000/api/categorias/";
 const apiProductos = "http://127.0.0.1:8000/api/productos/";
+const apiProveedores = "http://127.0.0.1:8000/api/proveedores/";
 
 // mostrar categorias
 function cargarCategorias() {
@@ -55,23 +56,15 @@ document.getElementById("form-categoria").addEventListener("submit", function(ev
 
     fetch(apiCategorias, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             nombre: document.getElementById("nombre-categoria").value,
             descripcion: document.getElementById("descripcion-categoria").value
         })
-    })
-    .then(respuesta => {
-        if (!respuesta.ok) throw new Error("No se pudo guardar la categoria");
-        return respuesta.json();
-    })
-    .then(() => {
+    }).then(() => {
         this.reset();
         cargarCategorias();
-    })
-    .catch(error => alert(error.message));
+    });
 });
 
 // guardar producto
@@ -80,27 +73,95 @@ document.getElementById("form-producto").addEventListener("submit", function(eve
 
     fetch(apiProductos, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             nombre: document.getElementById("nombre-producto").value,
             descripcion: document.getElementById("descripcion-producto").value,
             precio: document.getElementById("precio-producto").value,
             categoria: document.getElementById("categoria-producto").value
         })
-    })
-    .then(respuesta => {
-        if (!respuesta.ok) throw new Error("No se pudo guardar el producto");
-        return respuesta.json();
-    })
-    .then(() => {
+    }).then(() => {
         this.reset();
         cargarProductos();
-    })
-    .catch(error => alert(error.message));
+    });
 });
 
-// cargar datos al abrir la pagina
+// mostrar proveedores
+function cargarProveedores() {
+    fetch(apiProveedores)
+        .then(respuesta => respuesta.json())
+        .then(proveedores => {
+            let tabla = document.getElementById("tabla-proveedores");
+            tabla.innerHTML = "";
+
+            proveedores.forEach(proveedor => {
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${proveedor.id}</td>
+                        <td>${proveedor.nombre}</td>
+                        <td>${proveedor.telefono}</td>
+                        <td>${proveedor.correo}</td>
+                        <td>
+                            <button onclick="editarProveedor(${proveedor.id})">Editar</button>
+                            <button onclick="eliminarProveedor(${proveedor.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+// guardar proveedor
+document.getElementById("form-proveedor").addEventListener("submit", function(evento) {
+    evento.preventDefault();
+
+    fetch(apiProveedores, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            nombre: document.getElementById("nombre-proveedor").value,
+            telefono: document.getElementById("telefono-proveedor").value,
+            correo: document.getElementById("correo-proveedor").value
+        })
+    }).then(() => {
+        this.reset();
+        cargarProveedores();
+    });
+});
+
+// editar proveedor
+function editarProveedor(id) {
+    fetch(apiProveedores + id + "/")
+        .then(respuesta => respuesta.json())
+        .then(proveedor => {
+            let nombre = prompt("Nombre:", proveedor.nombre);
+            let telefono = prompt("Telefono:", proveedor.telefono);
+            let correo = prompt("Correo:", proveedor.correo);
+
+            if (nombre === null || telefono === null || correo === null) return;
+
+            fetch(apiProveedores + id + "/", {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    nombre: nombre,
+                    telefono: telefono,
+                    correo: correo
+                })
+            }).then(() => cargarProveedores());
+        });
+}
+
+// eliminar proveedor
+function eliminarProveedor(id) {
+    if (confirm("¿Eliminar proveedor?")) {
+        fetch(apiProveedores + id + "/", {
+            method: "DELETE"
+        }).then(() => cargarProveedores());
+    }
+}
+
+// cargar datos
 cargarCategorias();
-cargarProductos()
+cargarProductos();
+cargarProveedores();

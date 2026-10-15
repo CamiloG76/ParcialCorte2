@@ -85,7 +85,7 @@ Mantener la api ejecutandose y abrir una segunda terminal en la carpeta principa
 
 Ejecutar:
 
-```bash
+```terminal
 python -m http.server 5500
 ```
 

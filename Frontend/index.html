@@ -57,6 +57,36 @@
         <tbody id="tabla-productos"></tbody>
     </table>
 
+    <h2>Registrar proveedor</h2>
+
+<form id="form-proveedor">
+    <input type="text" id="nombre-proveedor"
+        placeholder="Nombre del proveedor" required>
+
+    <input type="text" id="telefono-proveedor"
+        placeholder="Telefono" required>
+
+    <input type="email" id="correo-proveedor"
+        placeholder="Correo electronico" required>
+
+    <button type="submit">Guardar proveedor</button>
+</form>
+
+<h2>Lista de proveedores</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tabla-proveedores"></tbody>
+</table>
+
     <script src="./app.js"></script>
 
 </body>
