@@ -19,6 +19,7 @@ class Producto(models.Model):
         validators=[MinValueValidator(0.01)],
         verbose_name="Precio"
     )
+    // relaciona cada producto con una categoría
     categoria = models.ForeignKey(
         Categoria,
         on_delete=models.CASCADE,
